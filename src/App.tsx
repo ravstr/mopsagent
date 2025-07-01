@@ -4,6 +4,7 @@ import { useAuth } from './hooks/useAuth';
 import { UserProfile } from './components/UserProfile';
 import { AuthModal } from './components/AuthModal';
 import { EmailSignup } from './components/EmailSignup';
+import { Footer } from './components/Footer';
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -43,7 +44,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-beige-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-beige-50 flex flex-col">
       {/* Navigation */}
       <nav className="flex justify-between items-center px-8 py-6 relative z-10">
         <div className="flex items-center space-x-3">
@@ -65,8 +66,8 @@ function App() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <div className="flex flex-col items-center justify-center px-8 py-20 max-w-6xl mx-auto text-center">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-8 py-20 max-w-6xl mx-auto text-center">
         <div className="mb-12">
           <h1 className="heading-large mb-8 text-gray-800">
             Marketing Ops
@@ -75,8 +76,7 @@ function App() {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-700 max-w-4xl leading-relaxed font-medium">
-            Supercharge your marketing operations with intelligent automation. 
-            Transform your workflow with cutting-edge AI technology.
+            Supercharge your marketing operations with intelligent automation.
           </p>
         </div>
 
@@ -121,6 +121,9 @@ function App() {
           <EmailSignup />
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
 
       {/* Auth Modal */}
       <AuthModal 
