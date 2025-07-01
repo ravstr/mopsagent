@@ -40,6 +40,39 @@ export function useAuth() {
     }
   }
 
+  const signUpWithEmail = async (email: string, password: string, fullName?: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName
+        }
+      }
+    })
+    
+    if (error) {
+      console.error('Error signing up with email:', error.message)
+      throw error
+    }
+    
+    return data
+  }
+
+  const signInWithEmail = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+    
+    if (error) {
+      console.error('Error signing in with email:', error.message)
+      throw error
+    }
+    
+    return data
+  }
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) {
@@ -53,6 +86,8 @@ export function useAuth() {
     session,
     loading,
     signInWithGoogle,
+    signUpWithEmail,
+    signInWithEmail,
     signOut
   }
 }
