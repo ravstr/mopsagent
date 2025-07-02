@@ -3,6 +3,7 @@ import { Send, ArrowLeft, Zap, User, Bot } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { UserProfile } from '../components/UserProfile';
+import { getChatCompletion, type ChatMessage } from '../lib/openai';
 
 interface Message {
   id: string;
@@ -40,7 +41,7 @@ export function ChatPage() {
       };
       setMessages([initialMessage]);
       
-      // Simulate AI response for now
+      // Get AI response for initial prompt
       handleAIResponse(initialPrompt);
     }
   }, [initialPrompt, user, loading, navigate, messages.length]);
@@ -57,12 +58,21 @@ export function ChatPage() {
     setIsLoading(true);
     
     try {
-      // TODO: Replace with actual OpenAI API call
-      // This is a placeholder response tailored for marketing use cases
-      const aiResponse = generateMarketingResponse(userMessage);
-      
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Prepare conversation history for OpenAI
+      const chatHistory: ChatMessage[] = messages
+        .filter(msg => msg.role !== 'user' || msg.content !== userMessage) // Exclude the current user message if it's already in messages
+        .map(msg => ({
+          role: msg.role as 'user' | 'assistant',
+          content: msg.content
+        }));
+
+      // Add the current user message
+      chatHistory.push({
+        role: 'user',
+        content: userMessage
+      });
+
+      const aiResponse = await getChatCompletion(chatHistory);
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -76,7 +86,7 @@ export function ChatPage() {
       console.error('Error getting AI response:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I apologize, but I'm having trouble processing your request right now. Please try again in a moment.",
+        content: "I apologize, but I'm having trouble processing your request right now. Please check your connection and try again.",
         role: 'assistant',
         timestamp: new Date()
       };
@@ -84,97 +94,6 @@ export function ChatPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const generateMarketingResponse = (prompt: string): string => {
-    const lowerPrompt = prompt.toLowerCase();
-    
-    if (lowerPrompt.includes('email') || lowerPrompt.includes('campaign')) {
-      return `Great question about email campaigns! Here's how I can help you optimize your email marketing:
-
-**Key Areas to Focus On:**
-• **Segmentation**: Divide your audience based on behavior, demographics, and engagement levels
-• **Personalization**: Use dynamic content and personalized subject lines
-• **A/B Testing**: Test subject lines, send times, and content variations
-• **Automation**: Set up drip campaigns and triggered emails
-
-**Specific Recommendations:**
-1. Analyze your current open rates and click-through rates
-2. Implement behavioral triggers for abandoned cart emails
-3. Create re-engagement campaigns for inactive subscribers
-4. Optimize send times based on your audience's time zones
-
-Would you like me to dive deeper into any of these areas or help you create a specific email campaign strategy?`;
-    }
-    
-    if (lowerPrompt.includes('lead') || lowerPrompt.includes('scoring')) {
-      return `Lead scoring is crucial for prioritizing your sales efforts! Here's a comprehensive approach:
-
-**Lead Scoring Framework:**
-• **Demographic Data** (20-30 points): Job title, company size, industry
-• **Behavioral Data** (40-50 points): Website visits, content downloads, email engagement
-• **Engagement Level** (20-30 points): Social media interactions, webinar attendance
-
-**Implementation Strategy:**
-1. **Define Your Ideal Customer Profile (ICP)**
-2. **Set Point Values** for different actions and attributes
-3. **Create Scoring Tiers** (Hot: 80+, Warm: 50-79, Cold: <50)
-4. **Automate Follow-up Actions** based on scores
-
-**Tools & Metrics:**
-- Track conversion rates by score ranges
-- Monitor score decay over time
-- Integrate with your CRM for seamless handoffs
-
-What specific aspects of lead scoring would you like to explore further?`;
-    }
-    
-    if (lowerPrompt.includes('segment') || lowerPrompt.includes('customer')) {
-      return `Customer segmentation is the foundation of effective marketing! Let me help you create meaningful segments:
-
-**Segmentation Strategies:**
-• **Behavioral Segmentation**: Purchase history, website behavior, engagement patterns
-• **Demographic Segmentation**: Age, location, job role, company size
-• **Psychographic Segmentation**: Values, interests, lifestyle
-• **Lifecycle Stage**: New prospects, active customers, at-risk customers
-
-**Advanced Segmentation Techniques:**
-1. **RFM Analysis**: Recency, Frequency, Monetary value
-2. **Cohort Analysis**: Group customers by acquisition date
-3. **Predictive Segmentation**: Use ML to predict future behavior
-4. **Dynamic Segmentation**: Segments that update automatically
-
-**Actionable Next Steps:**
-- Audit your current data sources
-- Identify your top 3-5 most valuable segments
-- Create targeted campaigns for each segment
-- Set up automated segment updates
-
-Which type of segmentation would be most valuable for your current marketing goals?`;
-    }
-    
-    // Default marketing-focused response
-    return `I'm here to help you optimize your marketing operations! Based on your query, here are some strategic recommendations:
-
-**Marketing Operations Best Practices:**
-• **Data Integration**: Ensure all your marketing tools are connected and sharing data
-• **Attribution Modeling**: Track the customer journey across all touchpoints
-• **Performance Analytics**: Set up dashboards for real-time campaign monitoring
-• **Process Automation**: Automate repetitive tasks to focus on strategy
-
-**Key Areas to Explore:**
-1. **Campaign Optimization**: Improve ROI across all channels
-2. **Lead Management**: Streamline lead capture to conversion
-3. **Customer Journey Mapping**: Understand and optimize touchpoints
-4. **Marketing Technology Stack**: Evaluate and optimize your tools
-
-**Next Steps:**
-- Identify your biggest marketing challenge
-- Audit your current processes and tools
-- Set measurable goals and KPIs
-- Create an action plan with timelines
-
-What specific marketing challenge would you like to tackle first? I can provide more targeted advice based on your priorities.`;
   };
 
   const handleSendMessage = async () => {
