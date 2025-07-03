@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Send, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
@@ -10,6 +10,7 @@ import { Footer } from '../components/Footer';
 export function HomePage() {
   const [prompt, setPrompt] = useState('');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -24,23 +25,48 @@ export function HomePage() {
     'Journey analytics'
   ];
 
+  // Handle navigation after user signs in
+  useEffect(() => {
+    if (user && pendingPrompt) {
+      // User just signed in and we have a pending prompt
+      navigate('/chat', { 
+        state: { 
+          initialPrompt: pendingPrompt 
+        } 
+      });
+      setPendingPrompt(null);
+    }
+  }, [user, pendingPrompt, navigate]);
+
   const handleSuggestionClick = (suggestion: string) => {
     setPrompt(suggestion);
   };
 
   const handleSendClick = () => {
+    const trimmedPrompt = prompt.trim();
+    
+    if (!trimmedPrompt) return;
+    
     if (!user) {
+      // Store the prompt and open auth modal
+      setPendingPrompt(trimmedPrompt);
       setIsAuthModalOpen(true);
       return;
     }
     
-    if (prompt.trim()) {
-      // Navigate to chat page with the initial prompt
-      navigate('/chat', { 
-        state: { 
-          initialPrompt: prompt.trim() 
-        } 
-      });
+    // User is authenticated, navigate immediately
+    navigate('/chat', { 
+      state: { 
+        initialPrompt: trimmedPrompt 
+      } 
+    });
+  };
+
+  const handleAuthModalClose = () => {
+    setIsAuthModalOpen(false);
+    // Clear pending prompt if user closes modal without signing in
+    if (!user) {
+      setPendingPrompt(null);
     }
   };
 
@@ -98,6 +124,12 @@ export function HomePage() {
               placeholder="How can MopsAgent help you today?"
               className="w-full bg-transparent text-gray-800 placeholder-gray-500 border-none outline-none resize-none text-base leading-relaxed min-h-[100px] font-medium"
               rows={4}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendClick();
+                }
+              }}
             />
             <div className="flex justify-end mt-4">
               <button 
@@ -137,7 +169,7 @@ export function HomePage() {
       {/* Auth Modal */}
       <AuthModal 
         isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
+        onClose={handleAuthModalClose} 
       />
 
       {/* Decorative Elements */}
