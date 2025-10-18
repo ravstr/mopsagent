@@ -96,7 +96,7 @@ export function HomePage() {
             rel="noopener noreferrer"
             className="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300"
           >
-            Who created it
+            Who created it?
           </a>
           {user ? (
             <UserProfile />
