@@ -89,21 +89,21 @@ export function HomePage() {
           <span className="text-2xl font-bold text-gray-800">MopsAgent</span>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-6">
           <a
             href="https://ravi.mopsagent.ai"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300 rounded-xl hover:bg-gray-100/50"
+            className="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300"
           >
-            Ravi
+            Who created it
           </a>
           {user ? (
             <UserProfile />
           ) : (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="btn-secondary"
+              className="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300"
             >
               Sign In
             </button>
