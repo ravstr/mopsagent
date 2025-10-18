@@ -89,12 +89,12 @@ export function HomePage() {
           <span className="text-2xl font-bold text-gray-800">MopsAgent</span>
         </div>
 
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4">
           <a
             href="https://ravi.mopsagent.ai"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300 rounded-xl hover:bg-gray-100/50"
           >
             Ravi
           </a>

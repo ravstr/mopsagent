@@ -6,6 +6,15 @@ export function Footer() {
     <footer className="relative z-10 py-8 px-8">
       <div className="flex items-center justify-center space-x-4 text-gray-500">
         <span className="text-sm">© 2025</span>
+        <span className="text-gray-400">•</span>
+        <a
+          href="https://ravi.mopsagent.ai"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-gray-400 hover:text-blue-600 transition-colors duration-300"
+        >
+          Built by Ravi
+        </a>
         <a
           href="https://www.linkedin.com/in/ravishrestha/"
           target="_blank"
