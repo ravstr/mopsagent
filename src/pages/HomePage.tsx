@@ -88,17 +88,27 @@ export function HomePage() {
           </div>
           <span className="text-2xl font-bold text-gray-800">MopsAgent</span>
         </div>
-        
-        {user ? (
-          <UserProfile />
-        ) : (
-          <button 
-            onClick={() => setIsAuthModalOpen(true)}
-            className="btn-secondary"
+
+        <div className="flex items-center space-x-6">
+          <a
+            href="https://ravi.mopsagent.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors duration-300"
           >
-            Sign In
-          </button>
-        )}
+            Ravi
+          </a>
+          {user ? (
+            <UserProfile />
+          ) : (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="btn-secondary"
+            >
+              Sign In
+            </button>
+          )}
+        </div>
       </nav>
 
       {/* Main Content */}
