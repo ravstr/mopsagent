@@ -236,14 +236,13 @@ export function ChatPage() {
               <button
                 onClick={handleSendMessage}
                 disabled={!currentMessage.trim() || isLoading}
-                className={`btn-primary-compact flex items-center space-x-2 ${
+                className={`btn-primary-compact flex items-center justify-center ${
                   !currentMessage.trim() || isLoading
                     ? 'opacity-50 cursor-not-allowed transform-none hover:scale-100 hover:translate-y-0'
                     : ''
                 }`}
               >
                 <Send className="w-4 h-4" />
-                <span>Send</span>
               </button>
             </div>
           </div>
