@@ -142,13 +142,12 @@ export function HomePage() {
               }}
             />
             <div className="flex justify-end mt-4">
-              <button 
+              <button
                 onClick={handleSendClick}
-                className={`btn-primary-compact flex items-center space-x-2 ${!prompt.trim() ? 'opacity-50 cursor-not-allowed transform-none hover:scale-100 hover:translate-y-0' : ''}`}
+                className={`btn-primary-compact flex items-center justify-center ${!prompt.trim() ? 'opacity-50 cursor-not-allowed transform-none hover:scale-100 hover:translate-y-0' : ''}`}
                 disabled={!prompt.trim()}
               >
                 <Send className="w-4 h-4" />
-                <span>Send</span>
               </button>
             </div>
           </div>
