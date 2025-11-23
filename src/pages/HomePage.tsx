@@ -120,8 +120,8 @@ export function HomePage() {
             meets AI
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl leading-relaxed font-medium">
-            Supercharge your marketing operations with intelligent automation.
+          <p className="text-base md:text-lg text-gray-700 max-w-4xl leading-relaxed font-medium">
+            Marketing ops is shifting from how to execute to what to build and why — but most resources still teach the old playbook. MOpsAgent is a Socratic AI tutor that asks the right questions to help you navigate ambiguity and drive business outcomes, not just campaign metrics. It helps you build judgment for complex decisions — not just get answers. Think less like a tool operator, more like a strategist.
           </p>
         </div>
 
