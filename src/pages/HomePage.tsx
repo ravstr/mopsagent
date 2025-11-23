@@ -121,7 +121,7 @@ export function HomePage() {
           </h1>
           
           <p className="text-base md:text-lg text-gray-700 max-w-4xl leading-relaxed font-medium">
-            Marketing Ops is shifting from <strong>how</strong> to execute to <strong>what</strong> to build and <strong>why</strong> — but most resources still teach the old playbook. MopsAgent is a Socratic AI tutor that asks the right questions to help you navigate ambiguity and drive business outcomes, not just campaign metrics. It helps you build judgment for complex decisions — not just get answers. Think <strong>less</strong> like a tool operator, <strong>more</strong> like a strategist.
+            Marketing Ops is shifting from <strong>how</strong> to execute to <strong>what</strong> to build and <strong>why</strong> — but most resources still teach the old playbook. MopsAgent is a Socratic AI tutor that asks the right questions to help you navigate ambiguity and drive business outcomes, not just campaign metrics. Build judgment for complex decisions through guided questions, not prescriptive answers.
           </p>
         </div>
 
