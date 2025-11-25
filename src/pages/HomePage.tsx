@@ -121,7 +121,7 @@ export function HomePage() {
           </h1>
           
           <p className="text-base md:text-lg text-gray-700 max-w-4xl leading-relaxed font-medium">
-            Marketing Ops isn't just about executing anymore — it's about deciding <strong>what</strong> to build and <strong>why</strong>. But most resources still teach the outdated and biased playbook. MopsAgent is your Socratic AI tutor: it asks the right questions to help you navigate ambiguity and drive business outcomes. Build judgement through guided questions, not prescriptive answers.
+            Marketing Ops isn't just about executing anymore — it's about deciding <strong>what</strong> to build and <strong>why</strong>. But most resources still rely on the outdated and biased playbook. MopsAgent is your Socratic AI tutor: it asks the right questions to help you navigate ambiguity and drive business outcomes. Build judgement through guided questions, not prescriptive answers.
           </p>
         </div>
 
