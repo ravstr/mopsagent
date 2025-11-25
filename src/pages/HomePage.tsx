@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Send, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { usePageTracking } from '../hooks/usePageTracking';
 import { UserProfile } from '../components/UserProfile';
 import { AuthModal } from '../components/AuthModal';
 import { EmailSignup } from '../components/EmailSignup';
@@ -13,6 +14,8 @@ export function HomePage() {
   const [pendingPrompt, setPendingPrompt] = useState<string | null>(null);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+
+  usePageTracking('homepage');
 
   const suggestions = [
     'Optimize email campaigns',
