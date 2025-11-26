@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from './useAuth'
 
+const IGNORED_IPS = ['172.58.132.69']
+
 export function usePageTracking(page: string) {
   const { user } = useAuth()
 
@@ -11,6 +13,11 @@ export function usePageTracking(page: string) {
         const ipResponse = await fetch('https://api.ipify.org?format=json')
         const ipData = await ipResponse.json()
         const ipAddress = ipData.ip
+
+        if (IGNORED_IPS.includes(ipAddress)) {
+          console.log(`Page visit from ${ipAddress} ignored (in blocklist)`)
+          return
+        }
 
         let country = null
         let city = null
