@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from './useAuth'
 
-const IGNORED_IPS = ['172.58.132.69']
+const IGNORED_IPS = ['172.58.132.69', '172.58.135.90']
+const IGNORED_REFERRER_PATTERNS = ['webcontainer-api.io']
 
 export function usePageTracking(page: string) {
   const { user } = useAuth()
@@ -13,9 +14,15 @@ export function usePageTracking(page: string) {
         const ipResponse = await fetch('https://api.ipify.org?format=json')
         const ipData = await ipResponse.json()
         const ipAddress = ipData.ip
+        const referrer = document.referrer
 
         if (IGNORED_IPS.includes(ipAddress)) {
-          console.log(`Page visit from ${ipAddress} ignored (in blocklist)`)
+          console.log(`Page visit from ${ipAddress} ignored (in IP blocklist)`)
+          return
+        }
+
+        if (referrer && IGNORED_REFERRER_PATTERNS.some(pattern => referrer.includes(pattern))) {
+          console.log(`Page visit from referrer ${referrer} ignored (in referrer blocklist)`)
           return
         }
 
@@ -35,7 +42,7 @@ export function usePageTracking(page: string) {
           page,
           user_id: user?.id || null,
           ip_address: ipAddress,
-          referrer: document.referrer || null,
+          referrer: referrer || null,
           user_agent: navigator.userAgent,
           country,
           city,
