@@ -18,14 +18,14 @@ export function HomePage() {
   usePageTracking('homepage');
 
   const suggestions = [
-    'Optimize email campaigns',
-    'Generate lead scoring',
-    'Customer segmentation',
-    'Analyze conversion funnels',
-    'Attribution reporting',
-    'Automate workflows',
-    'Content personalization',
-    'Journey analytics'
+    'Design go-to-market strategy',
+    'Build platform architecture',
+    'Coordinate cross-functional GTM',
+    'Analyze market segmentation',
+    'Plan product-market fit',
+    'Optimize growth infrastructure',
+    'Design customer journey',
+    'Scale revenue operations'
   ];
 
   // Handle navigation after user signs in
