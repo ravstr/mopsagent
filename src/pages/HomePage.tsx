@@ -93,14 +93,6 @@ export function HomePage() {
         </div>
 
         <div className="flex items-center space-x-6">
-          <a
-            href="https://ravi.mopsagent.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors duration-300"
-          >
-            Let's chat
-          </a>
           {user ? (
             <UserProfile />
           ) : (
