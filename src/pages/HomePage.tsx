@@ -22,7 +22,6 @@ export function HomePage() {
     'Build platform architecture',
     'Coordinate cross-functional GTM',
     'Analyze market segmentation',
-    'Plan product-market fit',
     'Optimize growth infrastructure',
     'Design customer journey',
     'Scale revenue operations'
