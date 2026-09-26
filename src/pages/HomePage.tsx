@@ -18,8 +18,8 @@ export function HomePage() {
   usePageTracking('homepage');
 
   const suggestions = [
+    'Build MarTech Stack',
     'Design go-to-market strategy',
-    'Build platform architecture',
     'Coordinate cross-functional GTM',
     'Analyze market segmentation',
     'Optimize growth infrastructure',
